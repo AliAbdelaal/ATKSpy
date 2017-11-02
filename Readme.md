@@ -1,7 +1,7 @@
 # Microsoft ATKS python Package 
 this repo is a python package that supports SOAP interface to communicate with the Microsoft ATKS 
 
-###What is the ATKS
+### What is the ATKS
 The Arabic Toolkit Service ([ATKS](https://www.microsoft.com/en-us/research/project/arabic-toolkit-service-atks/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fatks%2F)) offers a set of APIs for basic processing of written Arabic language. The Toolkit is designed to help the Arabic developer by providing high-quality Arabic NLP APIs which eases the burden of building the low-level language processing functionality and allows developers and researchers to focus more on higher-level functionality and on the applications’ level. The ATKS provides a rich set of APIs as SOAP Web Services, and covering the basic language processing operations through the following components: 
 * [Colloquial to Arabic Converter](https://www.microsoft.com/en-us/research/project/colloquial-to-arabic-converter/) 
 > The Colloquial Converter provides translation of Egyptian colloquial text into the equivalent Modern Standard Arabic text along with rich mapping information. Both Sarf and the Colloquial Morphological Analyzer are used internally to provide the final translation.
