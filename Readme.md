@@ -47,6 +47,7 @@ The Arabic Toolkit Service ([ATKS](https://www.microsoft.com/en-us/research/proj
 this library is so simple to use, you just need your app id and you're ready to go
 
 see this example of using the Parser module 
+
 ```angular2html
 from ATKSpy import Parser
 parser = Parser(app_id)
@@ -60,6 +61,7 @@ print(parser.Parse(text))
 >>>     'score': 0.05979948927458925
 >>> }
 ```
+
 it's so straight forward !!
 
 after login with your Microsoft account you can then navigate the ATKS modules specs for specific argument values that are not standard (e.x:the SARF module has many non string nor boolean attributes)
