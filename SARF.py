@@ -82,9 +82,8 @@ class SARF:
         :param analysis: SarfAnalysis
         :param ling_mode: LinguisticMode
         ling_mode can take values
-            Classical	    0	Default operational mode (ignore direct speech analyses)
-            Colloquial	    1	Not used
-            Conversational	2	Keeps direct speech analyses (use this to generate all analyses including direct speech analyses)
+            'Classical'	    Default operational mode (ignore direct speech analyses)
+            'Conversational'	Keeps direct speech analyses (use this to generate all analyses including direct speech analyses)
         :param diacritized: boolean
         :return: ns1:SarfErrorCode, inflections: ns1:ArrayOfString, totalInflections: xsd:int
         """
@@ -96,9 +95,8 @@ class SARF:
         :param analysis: SarfAnalysis
         :param ling_mode: LinguisticMode
         ling_mode can take values
-            Classical	    0	Default operational mode (ignore direct speech analyses)
-            Colloquial	    1	Not used
-            Conversational	2	Keeps direct speech analyses (use this to generate all analyses including direct speech analyses)
+            'Classical'	    Default operational mode (ignore direct speech analyses)
+            'Conversational'	Keeps direct speech analyses (use this to generate all analyses including direct speech analyses)
         :param diacritized: boolean
         :param max_inflections: int
         :param start_index: int
