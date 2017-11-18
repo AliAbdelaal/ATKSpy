@@ -23,7 +23,7 @@ class Named_Entity_Recognizer:
         self.__app_id = app_id
 
     # TODO :: build the options part
-    def GetArabicNamedEntities(self, arabic_text, options=[]):
+    def GetArabicNamedEntities(self, arabic_text, options=None):
         """
         :param arabic_text: string
         :param options: list of strings can take values of the following:
@@ -31,6 +31,8 @@ class Named_Entity_Recognizer:
         example : options = ['UseAllComponents']
         :return: ns1:NERErrorCode, namedEntities: ns1:ArrayOfNamedEntity
         """
+        if options is None:
+            options = ['UseAllComponents']
         result = self.__client.service.GetArabicNamedEntities(self.__app_id, arabic_text, options)
         return result
 
