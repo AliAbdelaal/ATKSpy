@@ -48,12 +48,13 @@ this library is so simple to use, you just need your app id and you're ready to 
 
 see this example of using the Parser module 
 
-```angular2html
+```python
 from ATKSpy import Parser
 parser = Parser(app_id)
 text = "عشان اصحى بدري لازم انام بدري"
 print(parser.Parse(text))
-
+```
+```
 >>> Forcing soap:address location to HTTPS
 >>> {
 >>>     'ParseResult': 'Success',
