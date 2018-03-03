@@ -1,10 +1,14 @@
-# Microsoft ATKS python Package #
-this repo is a python package that supports SOAP interface to communicate with the Microsoft ATKS 
+Microsoft ATKS python Package
+===============================
 
-### What is the ATKS ###
-The Arabic Toolkit Service ([ATKS](https://www.microsoft.com/en-us/research/project/arabic-toolkit-service-atks/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fatks%2F)) offers a set of APIs for basic processing of written Arabic language. The Toolkit is designed to help the Arabic developer by providing high-quality Arabic NLP APIs which eases the burden of building the low-level language processing functionality and allows developers and researchers to focus more on higher-level functionality and on the applications’ level. The ATKS provides a rich set of APIs as SOAP Web Services, and covering the basic language processing operations through the following components: 
+a python package that supports SOAP interface to communicate with the Microsoft ATKS 
 
-* [Colloquial to Arabic Converter](https://www.microsoft.com/en-us/research/project/colloquial-to-arabic-converter/) 
+What is the ATKS
+==================
+
+The Arabic Toolkit Service ([ATKS](https://www.microsoft.com/en-us/research/project/arabic-toolkit-service-atks/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fatks%2F)) offers a set of APIs for basic processing of written Arabic language. The Toolkit is designed to help the Arabic developer by providing high-quality Arabic NLP APIs which eases the burden of building the low-level language processing functionality and allows developers and researchers to focus more on higher-level functionality and on the applications’ level. The ATKS provides a rich set of APIs as SOAP Web Services, and covering the basic language processing operations through the following components:
+
+* [Colloquial to Arabic Converter](https://www.microsoft.com/en-us/research/project/colloquial-to-arabic-converter/)
 
 > The Colloquial Converter provides translation of Egyptian colloquial text into the equivalent Modern Standard Arabic text along with rich mapping information. Both Sarf and the Colloquial Morphological Analyzer are used internally to provide the final translation.
 
@@ -36,14 +40,17 @@ The Arabic Toolkit Service ([ATKS](https://www.microsoft.com/en-us/research/proj
 
 > Transliteration is the conversion of text from one script to another while preserving the same pronunciation. The Transliterator provides translation of named entities, such as human and city names, from English to Arabic and vice versa—and conversion of text from Romanized Arabic to native Arabic script.
 
+requirements
+============
 
-### requirements
 * python3
 * [Zeep](http://docs.python-zeep.org/en/master/) module
 * Microsoft ATKS Account with [login credentials](https://www.microsoft.com/en-us/research/project/arabic-toolkit-service-atks/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fatks%2F)
 > you will need to wait for the mail from Microsoft team with the App ID of yours
 
-### How to use it
+How to use it
+=============
+
 this library is so simple to use, you just need your app id and you're ready to go
 
 see this example of using the Parser module 
@@ -54,7 +61,8 @@ parser = Parser(app_id)
 text = "عشان اصحى بدري لازم انام بدري"
 print(parser.Parse(text))
 ```
-```
+
+```raw
 >>> Forcing soap:address location to HTTPS
 >>> {
 >>>     'ParseResult': 'Success',
@@ -68,4 +76,3 @@ it's so straight forward !!
 after login with your Microsoft account you can then navigate the ATKS modules specs for specific argument values that are not standard (e.x:the SARF module has many non string nor boolean attributes)
 
 you can check the official documentation of all the modules at [Microsoft ATKS Site](http://atks.microsoft.com/Help/) 
-
