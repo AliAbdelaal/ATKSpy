@@ -45,7 +45,13 @@ The Arabic Toolkit Service ([ATKS](https://www.microsoft.com/en-us/research/proj
 * Microsoft ATKS Account with [login credentials](https://www.microsoft.com/en-us/research/project/arabic-toolkit-service-atks/?from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fprojects%2Fatks%2F)
 > you will need to wait for the mail from Microsoft team with the App ID of yours
 
-### How to use it
+### Installation and usage
+
+You can simply install the library using 
+
+```bash
+$pip install atkspy
+```
 
 this library is so simple to use, you just need your app id and you're ready to go
 
