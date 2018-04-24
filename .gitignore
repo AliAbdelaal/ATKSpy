@@ -12,3 +12,6 @@ build/
 
 # additional files and folders
 .idea/
+
+# temp files
+*.tmp.*
