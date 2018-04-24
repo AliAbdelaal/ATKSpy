@@ -1,3 +1,8 @@
+from requests import Session
+from zeep import Client
+from zeep.transports import Transport
+
+
 class Named_Entity_Recognizer:
     """
     The Arabic Named Entity Recognizer (ANER) detects and classifies named entities in Arabic text.
@@ -16,11 +21,13 @@ class Named_Entity_Recognizer:
     """
 
     def __init__(self, app_id):
-        import zeep
-        self.__WSDL = "https://atks.microsoft.com/Services/ANERService.svc"
-        self.__PORT = "HTTPS_IANERService"
-        self.__client = zeep.Client(wsdl=self.__WSDL, port_name=self.__PORT)
-        self.__app_id = app_id
+        self._WSDL = "https://atks.microsoft.com/Services/ANERService.svc"
+        self._PORT = "HTTPS_IANERService"
+        session = Session()
+        session.verify = False
+        trasnport = Transport(session=session)
+        self._client = Client(wsdl=self._WSDL, port_name=self._PORT, transport=trasnport)
+        self._app_id = app_id
 
     # TODO :: build the options part
     def GetArabicNamedEntities(self, arabic_text, options=None):
@@ -33,7 +40,7 @@ class Named_Entity_Recognizer:
         """
         if options is None:
             options = ['UseAllComponents']
-        result = self.__client.service.GetArabicNamedEntities(self.__app_id, arabic_text, options)
+        result = self._client.service.GetArabicNamedEntities(self._app_id, arabic_text, options)
         return result
 
     def ReportWronglyDetectedNamedEntity(self, named_entity, context, wrong_named_entity):
@@ -51,5 +58,5 @@ class Named_Entity_Recognizer:
         :param named_entity_type: string
         :return: ns1:NERErrorCode
         """
-        result = self.__client.service.SuggestMissingNamedEntity(self.__app_id, named_entity, context, named_entity_type)
+        result = self._client.service.SuggestMissingNamedEntity(self._app_id, named_entity, context, named_entity_type)
         return result

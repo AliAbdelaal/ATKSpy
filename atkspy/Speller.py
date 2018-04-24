@@ -1,3 +1,8 @@
+from requests import Session
+from zeep import Client
+from zeep.transports import Transport
+
+
 class Speller:
     """
     The Speller detects and corrects misspelled words in Arabic text and is designed for
@@ -7,11 +12,13 @@ class Speller:
     """
 
     def __init__(self, app_id):
-        import zeep
-        self.__WSDL = "https://atks.microsoft.com/Services/SpellerService.svc"
-        self.__PORT = "HTTPS_ISpellerService"
-        self.__client = zeep.Client(wsdl=self.__WSDL, port_name=self.__PORT)
-        self.__app_id = app_id
+        self._WSDL = "https://atks.microsoft.com/Services/SpellerService.svc"
+        self._PORT = "HTTPS_ISpellerService"
+        session = Session()
+        session.verify = False
+        trasnport = Transport(session=session)
+        self._client = Client(wsdl=self._WSDL, port_name=self._PORT, transport=trasnport)
+        self._app_id = app_id
 
     def Autocorrect(self, in_text, process_last_word_only):
         """
@@ -19,7 +26,7 @@ class Speller:
         :param process_last_word_only: boolean
         :return: ns1:SpellerErrorCode, correctedText: xsd:string
         """
-        result = self.__client.service.Autocorrect(self.__app_id, in_text, process_last_word_only)
+        result = self._client.service.Autocorrect(self._app_id, in_text, process_last_word_only)
         return result
 
     def AutocorrectAndSuggest(self, in_text, process_last_word_only):
@@ -28,7 +35,7 @@ class Speller:
         :param process_last_word_only: boolean
         :return: ns1:SpellerErrorCode, correctedText: xsd:string, erroneousWords: ns1:ArrayOfErroneousWord
         """
-        result = self.__client.service.AutocorrectAndSuggest(self.__app_id, in_text, process_last_word_only)
+        result = self._client.service.AutocorrectAndSuggest(self._app_id, in_text, process_last_word_only)
         return result
 
     def AutocorrectAndSuggest2(self, in_text, correction_options, process_last_word_only):
@@ -38,7 +45,7 @@ class Speller:
         :param process_last_word_only: boolean
         :return: ns1:SpellerErrorCode, correctedText: xsd:string, erroneousWords: ns1:ArrayOfErroneousWord
         """
-        result = self.__client.service.AutocorrectAndSuggest2(self.__app_id, in_text, correction_options,
+        result = self._client.service.AutocorrectAndSuggest2(self._app_id, in_text, correction_options,
                                                               process_last_word_only)
         return result
 
@@ -48,7 +55,7 @@ class Speller:
         :param process_last_word_only: boolean
         :return: ns1:SpellerErrorCode, erroneousWords: ns1:ArrayOfErroneousWord
         """
-        result = self.__client.service.DetectMistakes(self.__app_id, in_text, process_last_word_only)
+        result = self._client.service.DetectMistakes(self._app_id, in_text, process_last_word_only)
         return result
 
     def ReportCorrectionSelection(self, word, context, correction):
@@ -58,7 +65,7 @@ class Speller:
         :param correction: string
         :return: ns1:SpellerErrorCode
         """
-        result = self.__client.service.ReportCorrectionSelection(self.__app_id, word, context, correction)
+        result = self._client.service.ReportCorrectionSelection(self._app_id, word, context, correction)
         return result
 
     def ReportWronglyDetectedWord(self, word, context):
@@ -67,7 +74,7 @@ class Speller:
         :param context: string
         :return: ns1:SpellerErrorCode
         """
-        result = self.__client.service.ReportWronglyDetectedWord(self.__app_id, word, context)
+        result = self._client.service.ReportWronglyDetectedWord(self._app_id, word, context)
         return result
 
     def SuggestCorrectionForSpecificWord(self, in_text, word_position, correction_options):
@@ -77,7 +84,7 @@ class Speller:
         :param correction_options: SuggestionOption
         :return: ns1:SpellerErrorCode, erroneousWord: ns1:ErroneousWord
         """
-        result = self.__client.service.SuggestCorrectionForSpecificWord(self.__app_id, in_text, word_position,
+        result = self._client.service.SuggestCorrectionForSpecificWord(self._app_id, in_text, word_position,
                                                                         correction_options)
         return result
 
@@ -88,7 +95,7 @@ class Speller:
         :param process_last_word_only: boolean
         :return: ns1:SpellerErrorCode, erroneousWords: ns1:ArrayOfErroneousWord
         """
-        result = self.__client.service.SuggestCorrections(self.__app_id, in_text, correction_options,
+        result = self._client.service.SuggestCorrections(self._app_id, in_text, correction_options,
                                                           process_last_word_only)
         return result
 
@@ -99,5 +106,5 @@ class Speller:
         :param correction: string
         :return: ns1:SpellerErrorCode
         """
-        result = self.__client.service.SuggestMissingCorrection(self.__app_id, word, context, correction)
+        result = self._client.service.SuggestMissingCorrection(self._app_id, word, context, correction)
         return result

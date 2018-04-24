@@ -1,3 +1,8 @@
+from requests import Session
+from zeep import Client
+from zeep.transports import Transport
+
+
 class SARF:
     """
     Sarf provides automatic morphological analysis of Arabic words.
@@ -10,11 +15,13 @@ class SARF:
     """
 
     def __init__(self, app_id):
-        import zeep
-        self.__WSDL = "https://atks.microsoft.com/Services/SarfService.svc"
-        self.__PORT = "HTTPS_ISarfService"
-        self.__client = zeep.Client(wsdl=self.__WSDL, port_name=self.__PORT)
-        self.__app_id = app_id
+        self._WSDL = "https://atks.microsoft.com/Services/SarfService.svc"
+        self._PORT = "HTTPS_ISarfService"
+        session = Session()
+        session.verify = False
+        trasnport = Transport(session=session)
+        self._client = Client(wsdl=self._WSDL, port_name=self._PORT, transport=trasnport)
+        self._app_id = app_id
 
     def AnalyzeToken(self, word, ling_mode):
         """
@@ -26,7 +33,7 @@ class SARF:
             Conversational	2	Keeps direct speech analyses (use this to generate all analyses including direct speech analyses)
         :return: ns1:SarfErrorCode, analyses: ns1:ArrayOfSarfAnalysis
         """
-        result = self.__client.service.AnalyzeToken(self.__app_id, word, ling_mode)
+        result = self._client.service.AnalyzeToken(self._app_id, word, ling_mode)
         return result
 
     def AnalyzeTokensArray(self, words, ling_mode):
@@ -39,7 +46,7 @@ class SARF:
             Conversational	2	Keeps direct speech analyses (use this to generate all analyses including direct speech analyses)
         :return: ns1:ArrayOfSarfErrorCode, analyses: ns1:ArrayOfArrayOfSarfAnalysis
         """
-        result = self.__client.service.AnalyzeTokensArray(self.__app_id, words, ling_mode)
+        result = self._client.service.AnalyzeTokensArray(self._app_id, words, ling_mode)
         return result
 
     def DecodeFeatures(self, binary_syntactic_features):
@@ -47,7 +54,7 @@ class SARF:
         :param binary_syntactic_features: long
         :return: ns1:SarfErrorCode, detailedFeatures: ns1:MorphoSyntacticFeatures
         """
-        result = self.__client.service.DecodeFeatures(self.__app_id, binary_syntactic_features)
+        result = self._client.service.DecodeFeatures(self._app_id, binary_syntactic_features)
         return result
 
     def EncodeFeatures(self, morpho_syntactic_features):
@@ -55,7 +62,7 @@ class SARF:
         :param morpho_syntactic_features: long
         :return: ns1:SarfErrorCode, binarySyntacticFeatures: xsd:long
         """
-        result = self.__client.service.EncodeFeatures(self.__app_id, morpho_syntactic_features)
+        result = self._client.service.EncodeFeatures(self._app_id, morpho_syntactic_features)
         return result
 
     def GetAllDerivatives(self, analysis, ignore_affixation):
@@ -64,7 +71,7 @@ class SARF:
         :param ignore_affixation: boolean
         :return: ns1:SarfErrorCode, analyses: ns1:ArrayOfSarfAnalysis
         """
-        result = self.__client.service.GetAllDerivatives(self.__app_id, analysis, ignore_affixation)
+        result = self._client.service.GetAllDerivatives(self._app_id, analysis, ignore_affixation)
         return result
 
     def GetDerivatives(self, analysis, pos, ignore_affixation):
@@ -74,7 +81,7 @@ class SARF:
         :param ignore_affixation: boolean
         :return: ns1:SarfErrorCode, analyses: ns1:ArrayOfSarfAnalysis
         """
-        result = self.__client.service.GetDerivatives(self.__app_id, analysis, pos, ignore_affixation)
+        result = self._client.service.GetDerivatives(self._app_id, analysis, pos, ignore_affixation)
         return result
 
     def GetInflections(self, analysis, ling_mode, diacritized):
@@ -87,7 +94,7 @@ class SARF:
         :param diacritized: boolean
         :return: ns1:SarfErrorCode, inflections: ns1:ArrayOfString, totalInflections: xsd:int
         """
-        results = self.__client.service.GetInflections(self.__app_id, analysis, ling_mode, diacritized)
+        results = self._client.service.GetInflections(self._app_id, analysis, ling_mode, diacritized)
         return results
 
     def GetInflectionsEx(self, analysis, ling_mode, diacritized, max_inflections, start_index):
@@ -102,7 +109,7 @@ class SARF:
         :param start_index: int
         :return: ns1:SarfErrorCode, inflections: ns1:ArrayOfString, totalInflections: xsd:int
         """
-        result = self.__client.service.GetInflectionsEx(self.__app_id, analysis, ling_mode, diacritized,
+        result = self._client.service.GetInflectionsEx(self._app_id, analysis, ling_mode, diacritized,
                                                         max_inflections, start_index)
         return result
 
@@ -112,5 +119,5 @@ class SARF:
         :param ignore_affixation: boolean
         :return: ns1:SarfErrorCode, analyses: ns1:ArrayOfSarfAnalysis
         """
-        result = self.__client.service.GetPlural(self.__app_id, analysis, ignore_affixation)
+        result = self._client.service.GetPlural(self._app_id, analysis, ignore_affixation)
         return result

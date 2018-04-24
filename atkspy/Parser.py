@@ -1,3 +1,8 @@
+from requests import Session
+from zeep import Client
+from zeep.transports import Transport
+
+
 class Parser:
     """
     The Arabic Parser determines the grammatical structure of Arabic sentences,
@@ -8,11 +13,13 @@ class Parser:
     """
 
     def __init__(self, app_id):
-        import zeep
-        self.__WSDL = "https://atks.microsoft.com/Services/ParserService.svc"
-        self.__PORT = "HTTPS_IParserService"
-        self.__client = zeep.Client(wsdl=self.__WSDL, port_name=self.__PORT)
-        self.__app_id = app_id
+        self._WSDL = "https://atks.microsoft.com/Services/ParserService.svc"
+        self._PORT = "HTTPS_IParserService"
+        session = Session()
+        session.verify = False
+        trasnport = Transport(session=session)
+        self._client = Client(wsdl=self._WSDL, port_name=self._PORT, transport=trasnport)
+        self._app_id = app_id
 
     def Parse(self, in_text):
         """
@@ -20,7 +27,7 @@ class Parser:
         :param in_text: string
         :return: ns1:ParserErrorCode, parseTree: xsd:string, score: xsd:double
         """
-        result = self.__client.service.Parse(self.__app_id, in_text)
+        result = self._client.service.Parse(self._app_id, in_text)
         return result
 
     def SuggestParseTree(self, in_text, alternative_parse_tree):
@@ -29,5 +36,5 @@ class Parser:
         :param alternative_parse_tree: string
         :return: ns1:ParserErrorCode
         """
-        result = self.__client.service.SuggestParseTree(self.__app_id, in_text, alternative_parse_tree)
+        result = self._client.service.SuggestParseTree(self._app_id, in_text, alternative_parse_tree)
         return result

@@ -1,3 +1,8 @@
+from requests import Session
+from zeep import Client
+from zeep.transports import Transport
+
+
 class Part_of_Speech_Tagger:
     """
     The Part of Speech (POS) Tagger is responsible for identifying the correct part of speech for each token
@@ -8,19 +13,21 @@ class Part_of_Speech_Tagger:
     """
 
     def __init__(self, app_id):
-        import zeep
-        self.__WSDL = "https://atks.microsoft.com/Services/POSTaggerService.svc"
-        self.__PORT = "HTTPS_IPOSTaggerService"
-        self.__client = zeep.Client(wsdl=self.__WSDL, port_name=self.__PORT)
-        self.__app_id = app_id
-
+        self._WSDL = "https://atks.microsoft.com/Services/POSTaggerService.svc"
+        self._PORT = "HTTPS_IPOSTaggerService"
+        session = Session()
+        session.verify = False
+        trasnport = Transport(session=session)
+        self._client = Client(wsdl=self._WSDL, port_name=self._PORT, transport=trasnport)
+        self._app_id = app_id
+        
     def ReportWrongTag(self, word, context):
         """
         :param word: string
         :param context: string
         :return: ns1:POSTaggerErrorCode
         """
-        result = self.__client.service.ReportWrongTag(self.__app_id, word, context)
+        result = self._client.service.ReportWrongTag(self._app_id, word, context)
         return result
     def SuggestTag(self, word, context, suggested_tag):
         """
@@ -29,7 +36,7 @@ class Part_of_Speech_Tagger:
         :param suggested_tag: string
         :return: ns1:POSTaggerErrorCode
         """
-        result = self.__client.service.SuggestTag(self.__app_id, word, context, suggested_tag)
+        result = self._client.service.SuggestTag(self._app_id, word, context, suggested_tag)
         return result
     def TagText(self, text, auto_correct):
         """
@@ -37,7 +44,7 @@ class Part_of_Speech_Tagger:
         :param auto_correct: boolen
         :return: ns1:POSTaggerErrorCode, taggedWords: ns1:ArrayOfTaggedWord
         """
-        result = self.__client.service.TagText(self.__app_id, text, auto_correct)
+        result = self._client.service.TagText(self._app_id, text, auto_correct)
         return result
 
     def TagWords(self, words):
@@ -45,5 +52,5 @@ class Part_of_Speech_Tagger:
         :param words: list of strings
         :return: ns1:POSTaggerErrorCode, taggedWords: ns1:ArrayOfString
         """
-        result = self.__client.service.TagWords(self.__app_id, words)
+        result = self._client.service.TagWords(self._app_id, words)
         return result
