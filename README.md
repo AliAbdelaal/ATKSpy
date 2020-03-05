@@ -1,3 +1,7 @@
+# **DEPRECATED** - Microsoft Arabic Toolkit is no longer available
+
+---
+
 # Microsoft ATKS python Package
 
 [![DOI](https://zenodo.org/badge/109307755.svg)](https://zenodo.org/badge/latestdoi/109307755)

@@ -1,4 +1,4 @@
-Microsoft ATKS python Package
+Microsoft ATKS python Package [DEPRECATED] Microsoft Arabic Toolkit is no longer available
 ===============================
 
 a python package that supports SOAP interface to communicate with the Microsoft ATKS 
